@@ -26,7 +26,7 @@ Please go to each link and read the documentation and install it.
 
 Put all EyeWitness,findomain and ParamSpider in the same folder as the script(Which I am providing you)
 
-ONE NOTE: You only need to change line 57 in tool.sh a little bit.I am printing line 57 below:
+ONE NOTE: You only need to change line 55 in tool.sh a little bit.I am printing line 55 below:
 
 echo "[+] Spidering the sub-domains"
 cat /root/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py -l high -o /root/Desktop/$url/recon/Spidering/% -d %

@@ -58,7 +58,7 @@ echo "[+] Doing some extra works"
 sleep 3
 rm -rf /root/Desktop/$url/recon/Spidering/$url
 cat /root/Desktop/$url/recon/Spidering/*.$TLD > /root/Desktop/$url/recon/Spidering/AllParams.txt
-cat /root/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '"/><img src=x onerror=confirm(1)>' > /root/Desktop/pubg.com/recon/Spidering/XSSParameters.txt
+cat /root/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '"/><img src=x onerror=confirm(1)>' > /root/Desktop/$url/recon/Spidering/XSSParameters.txt
 
 echo "[+] Taking Screenshots"
 ./EyeWitness/Python/EyeWitness.py --threads 100 --web --timeout 150  -f  /root/Desktop/$url/recon/httprobe/alive.txt -d /root/Desktop/$url/recon/EyeWitness
