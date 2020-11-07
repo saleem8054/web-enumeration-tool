@@ -4,7 +4,7 @@ First of all thank you so much for looking into the script.This script is simple
 
 You will need to download some dependencies before you can run it.
 
-1.ParamFinder https://github.com/devanshbatham/ParamSpider
+1.ParamSpider https://github.com/devanshbatham/ParamSpider
 It helps in finding parameters and endpoints for a given url.It is better and faster than Burp Spider.It functionality matches with waybackurl.
 
 2.findomain https://github.com/Edu4rdSHL/findomain
@@ -31,5 +31,5 @@ ONE NOTE: You only need to change line 55 in tool.sh a little bit.I am printing 
 echo "[+] Spidering the sub-domains"
 cat /root/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py -l high -o /root/Desktop/$url/recon/Spidering/% -d %
 
-as you can see,my ParamFinder script is located in /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py,you just need to change the location where you put your ParamFinder script.
+as you can see,my ParamSpider script is located in /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py,you just need to change the location where you put your ParamFinder script.
 
