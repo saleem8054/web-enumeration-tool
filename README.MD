@@ -31,5 +31,5 @@ ONE NOTE: You only need to change line 55 in tool.sh a little bit.I am printing 
 echo "[+] Spidering the sub-domains"
 cat /root/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py -l high -o /root/Desktop/$url/recon/Spidering/% -d %
 
-as you can see,my ParamSpider script is located in /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py,you just need to change the location where you put your ParamFinder script.
+as you can see,my ParamSpider script is located in /root/Desktop/ReconTool/finddomain/ParamSpider/paramspider.py,you just need to change the location where you put your ParamSpider script.
 
