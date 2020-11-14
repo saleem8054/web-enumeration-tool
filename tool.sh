@@ -49,7 +49,7 @@ if [ ! -f "/root/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt"
 	touch /root/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
 fi
  
-subjack -w /root/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c ~/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o /root/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
+subjack -w /root/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c /go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o /root/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
 
 echo "[+] Spidering the sub-domains"
 cat /root/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 /app/ParamSpider/paramspider.py --level high -o /root/Desktop/$url/recon/Spidering/% -d %
