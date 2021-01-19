@@ -33,7 +33,7 @@ if [ ! -f "$HOME/Desktop/$url/recon/final.txt" ];then
 fi
  
 echo "[+] Harvesting subdomains with finddomain..."
-./findomain-linux -t $url >> $HOME/Desktop/$url/recon/assets.txt
+./findomain-linux -t $url --quiet >> $HOME/Desktop/$url/recon/assets.txt
 cat $HOME/Desktop/$url/recon/assets.txt | grep $1 >> $HOME/Desktop/$url/recon/final.txt
 rm $HOME/Desktop/$url/recon/assets.txt
  
