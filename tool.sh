@@ -33,9 +33,37 @@ if [ ! -f "$HOME/Desktop/$url/recon/final.txt" ];then
 fi
  
 echo "[+] Harvesting subdomains with finddomain..."
-./findomain-linux -t $url --quiet >> $HOME/Desktop/$url/recon/assets.txt
-cat $HOME/Desktop/$url/recon/assets.txt | grep $1 >> $HOME/Desktop/$url/recon/final.txt
-rm $HOME/Desktop/$url/recon/assets.txt
+./findomain-linux -t $url --quiet >> $HOME/Desktop/$url/recon/finddoamin.txt
+#cat $HOME/Desktop/$url/recon/finddoamin.txt | grep $1 >> $HOME/Desktop/$url/recon/final.txt
+#rm $HOME/Desktop/$url/recon/finddoamin.txt
+
+echo "[+] Harvesting subdomains with subfinder..."
+subfinder -d $url --silent >> $HOME/Desktop/$url/recon/subfinder.txt
+#cat $HOME/Desktop/$url/recon/subfinder.txt | grep $1 >> $HOME/Desktop/$url/recon/final2.txt
+#rm $HOME/Desktop/$url/recon/subfinder.txt
+
+echo "[+] Checking the maximum sub domains count"
+
+findDomainCount=$(cat $HOME/Desktop/$url/recon/finddoamin.txt | wc -l)
+subFinderCount=$(cat $HOME/Desktop/$url/recon/subfinder.txt |  wc -l)
+finalFile=""
+
+if [ $findDomainCount -gt $subFinderCount ]
+then
+	rm $HOME/Desktop/$url/recon/subfinder.txt
+	finalFile="finddomain.txt"
+elif [ $findDomainCount -lt $subFinderCount ]
+then
+	rm $HOME/Desktop/$url/recon/finddoamin.txt
+	finalFile="subfinder.txt"
+else
+	rm $HOME/Desktop/$url/recon/finddoamin.txt
+	finalFile="subfinder.txt"
+fi	
+
+cat $HOME/Desktop/$url/recon/$finalFile | grep $1 >> $HOME/Desktop/$url/recon/final.txt
+rm $HOME/Desktop/$url/recon/$finalFile
+
  
  
 echo "[+] Probing for alive domains..."
@@ -58,7 +86,8 @@ echo "[+] Doing some extra works"
 sleep 3
 rm $HOME/Desktop/$url/recon/Spidering/$url
 cat $HOME/Desktop/$url/recon/Spidering/*.$TLD > $HOME/Desktop/$url/recon/Spidering/AllParams.txt
-cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '"/><img src=x onerror=confirm(1)>' > $HOME/Desktop/$url/recon/Spidering/XSSParameters.txt
+cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '=' > $HOME/Desktop/$url/recon/Spidering/XSSParameters.txt
+
 
 echo "[+] Taking Screenshots"
 ./EyeWitness/Python/EyeWitness.py --threads 100 --web --timeout 150  -f  $HOME/Desktop/$url/recon/httprobe/alive.txt -d $HOME/Desktop/$url/recon/EyeWitness
