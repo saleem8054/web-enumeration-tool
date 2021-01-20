@@ -43,7 +43,7 @@ subfinder -d $url --silent >> $HOME/Desktop/$url/recon/subfinder.txt
 #rm $HOME/Desktop/$url/recon/subfinder.txt
 
 echo "[+] Checking the maximum sub domains count"
-
+sleep 1
 findDomainCount=$(cat $HOME/Desktop/$url/recon/finddoamin.txt | wc -l)
 subFinderCount=$(cat $HOME/Desktop/$url/recon/subfinder.txt |  wc -l)
 finalFile=""
@@ -83,7 +83,7 @@ echo "[+] Spidering the sub-domains"
 cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 $HOME/Desktop/ReconTool/ParamSpider/paramspider.py --level high -o $HOME/Desktop/$url/recon/Spidering/% -d %
 
 echo "[+] Doing some extra works"
-sleep 3
+sleep 1
 rm $HOME/Desktop/$url/recon/Spidering/$url
 cat $HOME/Desktop/$url/recon/Spidering/*.$TLD > $HOME/Desktop/$url/recon/Spidering/AllParams.txt
 cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '=' > $HOME/Desktop/$url/recon/Spidering/XSSParameters.txt
