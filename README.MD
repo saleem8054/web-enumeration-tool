@@ -13,16 +13,13 @@ As the name suggests,this tool is used to find subdomains.I tried some of the su
 3.Subfinder https://github.com/projectdiscovery/subfinder
 Subfinder for extracting maximum subdomains as possible.
 
-3.Httprobe https://github.com/tomnomnom/httprobe
-httprobe is used to find the alive sub-domains.
-
-4.Eye Witness https://github.com/FortyNorthSecurity/EyeWitness
+3.Eye Witness https://github.com/FortyNorthSecurity/EyeWitness
 This tool is use to capture the screenshots of the listed subdomains.This is actually the last part of the script.It also creates some html files which will have screenshots of the subdomain + response headers + IP of the subdomain.
 
-5.Subjack https://github.com/haccer/subjack
+4.Subjack https://github.com/haccer/subjack
 It is used for subdomain takeover.
 
-6.Qsreplace https://github.com/tomnomnom/qsreplace
+5.Qsreplace https://github.com/tomnomnom/qsreplace
 for putting the simple XSS payload in every parameter
 
 Please go to each link and read the documentation and install it.
