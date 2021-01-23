@@ -33,12 +33,12 @@ if [ ! -f "$HOME/Desktop/$url/recon/final.txt" ];then
 fi
  
 echo "[+] Harvesting subdomains with finddomain..."
-./findomain-linux -t $url --quiet >> $HOME/Desktop/$url/recon/finddoamin.txt
+./findomain-linux -t $url --quiet -r >> $HOME/Desktop/$url/recon/finddoamin.txt
 #cat $HOME/Desktop/$url/recon/finddoamin.txt | grep $1 >> $HOME/Desktop/$url/recon/final.txt
 #rm $HOME/Desktop/$url/recon/finddoamin.txt
 
 echo "[+] Harvesting subdomains with subfinder..."
-subfinder -d $url --silent >> $HOME/Desktop/$url/recon/subfinder.txt
+subfinder -d $url --silent -nW >> $HOME/Desktop/$url/recon/subfinder.txt
 #cat $HOME/Desktop/$url/recon/subfinder.txt | grep $1 >> $HOME/Desktop/$url/recon/final2.txt
 #rm $HOME/Desktop/$url/recon/subfinder.txt
 
@@ -62,14 +62,8 @@ else
 fi	
 
 cat $HOME/Desktop/$url/recon/$finalFile | grep $1 >> $HOME/Desktop/$url/recon/final.txt
+cat $HOME/Desktop/$url/recon/$finalFile | grep $1 >> $HOME/Desktop/$url/recon/httprobe/alive.txt
 rm $HOME/Desktop/$url/recon/$finalFile
-
- 
- 
-echo "[+] Probing for alive domains..."
-cat $HOME/Desktop/$url/recon/final.txt | sort -u | httprobe -s -p https:443 -c 64 | sed 's/https\?:\/\///' | tr -d ':443'  >> $HOME/Desktop/$url/recon/httprobe/a.txt
-sort -u $HOME/Desktop/$url/recon/httprobe/a.txt > $HOME/Desktop/$url/recon/httprobe/alive.txt
-rm $HOME/Desktop/$url/recon/httprobe/a.txt
  
 echo "[+] Checking for possible subdomain takeover..."
  
@@ -91,6 +85,5 @@ cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '=' > $HOME/Des
 
 echo "[+] Taking Screenshots"
 ./EyeWitness/Python/EyeWitness.py --threads 100 --web --timeout 150  -f  $HOME/Desktop/$url/recon/httprobe/alive.txt -d $HOME/Desktop/$url/recon/EyeWitness
-
 
 
