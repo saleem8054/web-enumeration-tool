@@ -47,11 +47,12 @@ else
 fi	
 
 cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/httprobe/alive.txt
+rm $HOME/Desktop/$url/recon/$finalFile
 
 echo "[+] Checking for possible subdomain takeover..."
 subfinder -d $url --silent -all > $HOME/Desktop/$url/recon/final.txt
 subjack -w $HOME/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c $HOME/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
-rm $HOME/Desktop/$url/recon/$finalFile
+
  
 echo "[+] Spidering the sub-domains"
 cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 $HOME/Desktop/ReconTool/ParamSpider/paramspider.py --level high -o $HOME/Desktop/$url/recon/Spidering/% -d %
