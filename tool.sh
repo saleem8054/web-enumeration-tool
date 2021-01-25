@@ -9,42 +9,26 @@ TLD=${arr[$length-1]}
 
 if [ ! -d "$HOME/Desktop/$url" ];then
 	mkdir $HOME/Desktop/$url
+else
+	rm -rf $HOME/Desktop/$url
+	mkdir $HOME/Desktop/$url
 fi
-if [ ! -d "$HOME/Desktop/$url/recon" ];then
-	mkdir $HOME/Desktop/$url/recon
-fi
-#    if [ ! -d '$HOME/Desktop/$url/recon/eyewitness' ];then
-#        mkdir $HOME/Desktop/$url/recon/eyewitness
-#    fi
-if [ ! -d "$HOME/Desktop/$url/recon/Spidering" ];then
-	mkdir $HOME/Desktop/$url/recon/Spidering
-fi
-if [ ! -d "$HOME/Desktop/$url/recon/httprobe" ];then
-	mkdir $HOME/Desktop/$url/recon/httprobe
-fi
-if [ ! -d "$HOME/Desktop/$url/recon/potential_takeovers" ];then
-	mkdir $HOME/Desktop/$url/recon/potential_takeovers
-fi
-if [ ! -f "$HOME/Desktop/$url/recon/httprobe/alive.txt" ];then
-	touch $HOME/Desktop/$url/recon/httprobe/alive.txt
-fi
-if [ ! -f "$HOME/Desktop/$url/recon/final.txt" ];then
-	touch $HOME/Desktop/$url/recon/final.txt
-fi
+mkdir $HOME/Desktop/$url/recon
+mkdir $HOME/Desktop/$url/recon/Spidering
+mkdir $HOME/Desktop/$url/recon/httprobe
+mkdir $HOME/Desktop/$url/recon/potential_takeovers
+touch $HOME/Desktop/$url/recon/httprobe/alive.txt
+touch $HOME/Desktop/$url/recon/final.txt
  
 echo "[+] Harvesting subdomains with finddomain..."
-./findomain-linux -t $url --quiet -r >> $HOME/Desktop/$url/recon/finddoamin.txt
-#cat $HOME/Desktop/$url/recon/finddoamin.txt | grep $1 >> $HOME/Desktop/$url/recon/final.txt
-#rm $HOME/Desktop/$url/recon/finddoamin.txt
+./findomain-linux -t $url --quiet -r > $HOME/Desktop/$url/recon/finddomain.txt
 
 echo "[+] Harvesting subdomains with subfinder..."
-subfinder -d $url --silent -nW >> $HOME/Desktop/$url/recon/subfinder.txt
-#cat $HOME/Desktop/$url/recon/subfinder.txt | grep $1 >> $HOME/Desktop/$url/recon/final2.txt
-#rm $HOME/Desktop/$url/recon/subfinder.txt
+subfinder -d $url --silent -nW > $HOME/Desktop/$url/recon/subfinder.txt
 
 echo "[+] Checking the maximum sub domains count"
 sleep 1
-findDomainCount=$(cat $HOME/Desktop/$url/recon/finddoamin.txt | wc -l)
+findDomainCount=$(cat $HOME/Desktop/$url/recon/finddomain.txt | wc -l)
 subFinderCount=$(cat $HOME/Desktop/$url/recon/subfinder.txt |  wc -l)
 finalFile=""
 
@@ -54,15 +38,15 @@ then
 	finalFile="finddomain.txt"
 elif [ $findDomainCount -lt $subFinderCount ]
 then
-	rm $HOME/Desktop/$url/recon/finddoamin.txt
+	rm $HOME/Desktop/$url/recon/finddomain.txt
 	finalFile="subfinder.txt"
 else
-	rm $HOME/Desktop/$url/recon/finddoamin.txt
+	rm $HOME/Desktop/$url/recon/finddomain.txt
 	finalFile="subfinder.txt"
 fi	
 
-cat $HOME/Desktop/$url/recon/$finalFile | grep $1 >> $HOME/Desktop/$url/recon/final.txt
-cat $HOME/Desktop/$url/recon/$finalFile | grep $1 >> $HOME/Desktop/$url/recon/httprobe/alive.txt
+cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/final.txt
+cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/httprobe/alive.txt
 rm $HOME/Desktop/$url/recon/$finalFile
  
 echo "[+] Checking for possible subdomain takeover..."
