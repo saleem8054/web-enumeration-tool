@@ -19,12 +19,13 @@ mkdir $HOME/Desktop/$url/recon/httprobe
 mkdir $HOME/Desktop/$url/recon/potential_takeovers
 touch $HOME/Desktop/$url/recon/httprobe/alive.txt
 touch $HOME/Desktop/$url/recon/final.txt
+touch $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
  
 echo "[+] Harvesting subdomains with finddomain..."
 ./findomain-linux -t $url --quiet -r > $HOME/Desktop/$url/recon/finddomain.txt
 
 echo "[+] Harvesting subdomains with subfinder..."
-subfinder -d $url --silent -nW > $HOME/Desktop/$url/recon/subfinder.txt
+subfinder -d $url --silent -nW -all > $HOME/Desktop/$url/recon/subfinder.txt
 
 echo "[+] Checking the maximum sub domains count"
 sleep 1
@@ -45,18 +46,13 @@ else
 	finalFile="subfinder.txt"
 fi	
 
-cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/final.txt
 cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/httprobe/alive.txt
+
+echo "[+] Checking for possible subdomain takeover..."
+subfinder -d $url --silent -all > $HOME/Desktop/$url/recon/final.txt
+subjack -w $HOME/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c $HOME/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
 rm $HOME/Desktop/$url/recon/$finalFile
  
-echo "[+] Checking for possible subdomain takeover..."
- 
-if [ ! -f "$HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt" ];then
-	touch $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
-fi
- 
-subjack -w $HOME/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c $HOME/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
-
 echo "[+] Spidering the sub-domains"
 cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 $HOME/Desktop/ReconTool/ParamSpider/paramspider.py --level high -o $HOME/Desktop/$url/recon/Spidering/% -d %
 
