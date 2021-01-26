@@ -17,6 +17,7 @@ mkdir $HOME/Desktop/$url/recon
 mkdir $HOME/Desktop/$url/recon/Spidering
 mkdir $HOME/Desktop/$url/recon/httprobe
 mkdir $HOME/Desktop/$url/recon/potential_takeovers
+mkdir $HOME/Desktop/$url/recon/DNS
 touch $HOME/Desktop/$url/recon/httprobe/alive.txt
 touch $HOME/Desktop/$url/recon/final.txt
 touch $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
@@ -53,6 +54,8 @@ echo "[+] Checking for possible subdomain takeover..."
 subfinder -d $url --silent -t 100 -all > $HOME/Desktop/$url/recon/final.txt
 subjack -w $HOME/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c $HOME/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
 
+echo "[+] Checking CNAME records for subdomain takeover..."
+for domain in $(cat $HOME/Desktop/$url/recon/final.txt); do dig $domain | grep CNAME >> $HOME/Desktop/$url/recon/DNS/CNAME.txt; done
  
 echo "[+] Spidering the sub-domains"
 cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 $HOME/Desktop/ReconTool/ParamSpider/paramspider.py --level high -o $HOME/Desktop/$url/recon/Spidering/% -d %
