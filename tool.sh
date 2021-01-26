@@ -50,7 +50,7 @@ cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/htt
 rm $HOME/Desktop/$url/recon/$finalFile
 
 echo "[+] Checking for possible subdomain takeover..."
-subfinder -d $url --silent -all > $HOME/Desktop/$url/recon/final.txt
+subfinder -d $url --silent -t 100 -all > $HOME/Desktop/$url/recon/final.txt
 subjack -w $HOME/Desktop/$url/recon/final.txt -t 100 -timeout 30 -ssl -c $HOME/go/src/github.com/haccer/subjack/fingerprints.json -v 3 -o $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
 
  
