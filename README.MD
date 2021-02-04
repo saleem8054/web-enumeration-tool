@@ -22,7 +22,7 @@ It is used for subdomain takeover.
 5.Qsreplace https://github.com/tomnomnom/qsreplace
 for putting the simple XSS payload in every parameter
 
-6. linkcheck https://github.com/filiph/linkcheck
+6.linkcheck https://github.com/filiph/linkcheck
 To check for broken links in the web app.
 
 ### Please go to each link and read the documentation and install it.
