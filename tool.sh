@@ -49,7 +49,7 @@ else
 	finalFile="subfinder.txt"
 fi	
 
-cat $HOME/Desktop/$url/recon/$finalFile | grep $1 > $HOME/Desktop/$url/recon/httprobe/alive.txt
+cat $HOME/Desktop/$url/recon/$finalFile | egrep -iv "(www.$url)" > $HOME/Desktop/$url/recon/httprobe/alive.txt
 rm $HOME/Desktop/$url/recon/$finalFile
 
 echo "[+] Checking for possible subdomain takeover..."
@@ -64,7 +64,6 @@ cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 ./ParamSpid
 
 echo "[+] Doing some extra works"
 sleep 1
-rm $HOME/Desktop/$url/recon/Spidering/$url
 cat $HOME/Desktop/$url/recon/Spidering/*.$TLD > $HOME/Desktop/$url/recon/Spidering/AllParams.txt
 cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace > $HOME/Desktop/$url/recon/Spidering/XSSParameters.txt
 
