@@ -5,26 +5,31 @@ First of all thank you so much for looking into the script.This script is simple
 ### You will need to download some dependencies before you can run it.
 
 1.ParamSpider https://github.com/devanshbatham/ParamSpider
-It helps in finding parameters and endpoints for a given url.It is better and faster than Burp Spider.It functionality matches with waybackurl.
+It helps in finding parameters and endpoints for a given url and it's subdomains. It is better and faster than Burp Spider.It functionality matches with waybackurl.
 
 2.Findomain https://github.com/Edu4rdSHL/findomain
-As the name suggests,this tool is used to find subdomains.I tried some of the subdomain enumeration scripts but I found this one very effective.
+This tool is use to find subdomains.I tried some of the subdomain enumeration scripts, however, I found this one very effective.
 
 3.Subfinder https://github.com/projectdiscovery/subfinder
 Subfinder for extracting maximum subdomains as possible.
 
 3.Eye Witness https://github.com/FortyNorthSecurity/EyeWitness
-This tool is use to capture the screenshots of the listed subdomains.This is actually the last part of the script.It also creates some html files which will have screenshots of the subdomain + response headers + IP of the subdomain.
+This tool is use to capture the screenshots of the listed subdomains.It also creates html files which will have screenshots of the subdomain + response headers + IP of the subdomain.
 
 4.Subjack https://github.com/haccer/subjack
-It is used for subdomain takeover.
+It is use to check for subdomain takeover.
 
 5.Qsreplace https://github.com/tomnomnom/qsreplace
-for putting the simple XSS payload in every parameter
+It is use for removing duplicates and attaching simple XSS payloads in the urls obtained through waybackurl machine.
 
 6.linkcheck https://github.com/filiph/linkcheck
-To check for broken links in the web app.
+It checks for broken links for all the subdomains.
+
+7.clickjack https://github.com/saleem8054/clickjack
+It checks for clickjacking vulnerabilities for all the subdomains.
 
 ### Please go to each link and read the documentation and install it.
 
-### Put all EyeWitness,findomain and ParamSpider in the same folder as the script(Which I am providing you)
+### Put EyeWitness,findomain,ParamSpider and clickjack scripts in the same folder where you placed your tool.sh script.
+
+### HAPPY HACKING.
