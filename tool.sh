@@ -19,6 +19,7 @@ mkdir $HOME/Desktop/$url/recon/httprobe
 mkdir $HOME/Desktop/$url/recon/potential_takeovers
 mkdir $HOME/Desktop/$url/recon/DNS
 mkdir $HOME/Desktop/$url/recon/Broken_Links
+mkdir $HOME/Desktop/$url/recon/ClickJacking
 touch $HOME/Desktop/$url/recon/httprobe/alive.txt
 touch $HOME/Desktop/$url/recon/final.txt
 touch $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
@@ -70,6 +71,10 @@ cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace > $HOME/Desktop
 
 echo "[+] Taking Screenshots"
 ./EyeWitness/Python/EyeWitness.py --threads 100 --web --timeout 150  -f  $HOME/Desktop/$url/recon/httprobe/alive.txt -d $HOME/Desktop/$url/recon/EyeWitness
+
+echo "[+] Checking ClickJacking vulnerabilities..."
+python3 ./clickjack/clickjack.py $HOME/Desktop/$url/recon/httprobe/alive.txt
+mv ./clickjack/Vulnerable.txt $HOME/Desktop/$url/recon/ClickJacking
 
 echo "[+] Checking Broken links..."
 for domain in $(cat $HOME/Desktop/$url/recon/httprobe/alive.txt)
