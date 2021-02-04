@@ -59,13 +59,13 @@ echo "[+] Checking CNAME records for subdomain takeover..."
 for domain in $(cat $HOME/Desktop/$url/recon/final.txt); do dig $domain | grep CNAME >> $HOME/Desktop/$url/recon/DNS/CNAME.txt; done
  
 echo "[+] Spidering the sub-domains"
-cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 $HOME/Desktop/ReconTool/ParamSpider/paramspider.py --level high -o $HOME/Desktop/$url/recon/Spidering/% -d %
+cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 ./ParamSpider/paramspider.py --level high -o $HOME/Desktop/$url/recon/Spidering/% -d %
 
 echo "[+] Doing some extra works"
 sleep 1
 rm $HOME/Desktop/$url/recon/Spidering/$url
 cat $HOME/Desktop/$url/recon/Spidering/*.$TLD > $HOME/Desktop/$url/recon/Spidering/AllParams.txt
-cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '=' > $HOME/Desktop/$url/recon/Spidering/XSSParameters.txt
+cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace > $HOME/Desktop/$url/recon/Spidering/XSSParameters.txt
 
 
 echo "[+] Taking Screenshots"
