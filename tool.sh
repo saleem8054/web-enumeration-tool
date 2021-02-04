@@ -18,6 +18,7 @@ mkdir $HOME/Desktop/$url/recon/Spidering
 mkdir $HOME/Desktop/$url/recon/httprobe
 mkdir $HOME/Desktop/$url/recon/potential_takeovers
 mkdir $HOME/Desktop/$url/recon/DNS
+mkdir $HOME/Desktop/$url/recon/Broken_Links
 touch $HOME/Desktop/$url/recon/httprobe/alive.txt
 touch $HOME/Desktop/$url/recon/final.txt
 touch $HOME/Desktop/$url/recon/potential_takeovers/potential_takeovers.txt
@@ -70,4 +71,9 @@ cat $HOME/Desktop/$url/recon/Spidering/AllParams.txt | qsreplace '=' > $HOME/Des
 echo "[+] Taking Screenshots"
 ./EyeWitness/Python/EyeWitness.py --threads 100 --web --timeout 150  -f  $HOME/Desktop/$url/recon/httprobe/alive.txt -d $HOME/Desktop/$url/recon/EyeWitness
 
+echo "[+] Checking Broken links..."
+for domain in $(cat $HOME/Desktop/$url/recon/httprobe/alive.txt)
+do
+	linkcheck -e $domain | egrep -iv "($domain|200|300|301|- redirect path:|Access to these URLs denied by robots.txt, so we couldn't check them:)" | sed -r '/^\s*$/d' | tee $HOME/Desktop/$url/recon/Broken_Links/$domain
+done
 
