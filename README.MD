@@ -2,7 +2,7 @@ Hello Everyone,
 I hope you are doing great.
 First of all thank you so much for looking into the script.This script is simple and very effective for Recon.I use it daily for my bug bounty.
 
-You will need to download some dependencies before you can run it.
+### You will need to download some dependencies before you can run it.
 
 1.ParamSpider https://github.com/devanshbatham/ParamSpider
 It helps in finding parameters and endpoints for a given url.It is better and faster than Burp Spider.It functionality matches with waybackurl.
@@ -25,14 +25,6 @@ for putting the simple XSS payload in every parameter
 6. linkcheck https://github.com/filiph/linkcheck
 To check for broken links in the web app.
 
-Please go to each link and read the documentation and install it.
+### Please go to each link and read the documentation and install it.
 
-Put all EyeWitness,findomain and ParamSpider in the same folder as the script(Which I am providing you)
-
-ONE NOTE: You only need to change line 55 in tool.sh a little bit.I am printing line 55 below:
-
-echo "[+] Spidering the sub-domains"
-cat $HOME/Desktop/$url/recon/httprobe/alive.txt | xargs -I % python3 $HOME/Desktop/ReconTool/ParamSpider/paramspider.py -l high -o $HOME/Desktop/$url/recon/Spidering/% -d %
-
-as you can see,my ParamSpider script is located in $HOME/Desktop/ReconTool/ParamSpider/paramspider.py,you just need to change the location where you put your ParamSpider script..
-
+### Put all EyeWitness,findomain and ParamSpider in the same folder as the script(Which I am providing you)
