@@ -32,4 +32,12 @@ It checks for clickjacking vulnerabilities for all the subdomains.
 
 ### Put EyeWitness,findomain,ParamSpider and clickjack scripts in the same folder where you placed your tool.sh script.
 
+### Example
+
+##### Input
+
+```
+./tool.sh pubg.com
+```
+
 ### HAPPY HACKING.
